@@ -1,0 +1,45 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Hospital {
+  id               String       @id @default(auto()) @map("_id") @db.ObjectId
+  name             String
+  location         String
+  image            String
+  type             HospitalType @default(Public)
+  avg_waiting_time Int
+  working_hours    String
+  contact          String
+  isFavourite      Boolean
+  services         String
+}
+
+model Doctor {
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  gender      Gender
+  contact     String
+  image       String
+  specialty   String
+  isFavourite Boolean
+}
+
+enum HospitalType {
+  Private
+  Public
+  Specialist
+}
+
+enum Gender {
+  Male
+  Female
+}

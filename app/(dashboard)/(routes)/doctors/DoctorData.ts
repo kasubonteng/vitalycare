@@ -1,0 +1,38 @@
+export const DoctorData: Doctor[] = [
+	{
+		name: "Dr. Bright Okyere",
+		gender: "Male",
+		contact: "02000000",
+		image: "/doctor-img01.png",
+		specialty: "pharmacist",
+		hospital: "Tech Hospital",
+		isFavourite: false,
+	},
+	{
+		name: "Dr. Nana Yaa Mensah",
+		gender: "Female",
+		contact: "02000000",
+		image: "/doctor-img01.png",
+		specialty: "biochemist",
+		hospital: "Tech Hospital",
+		isFavourite: true,
+	},
+	{
+		name: "Dr. Sam Boamah",
+		gender: "Male",
+		contact: "02000000",
+		image: "/doctor-img01.png",
+		specialty: "pharmacist",
+		hospital: "Tech Hospital",
+		isFavourite: false,
+	},
+	{
+		name: "Dr. Tutu Afakye",
+		gender: "Male",
+		contact: "02000000",
+		image: "/doctor-img01.png",
+		specialty: "pharmacist",
+		hospital: "Tech Hospital",
+		isFavourite: false,
+	},
+];
