@@ -45,7 +45,7 @@ const DashboardPage = () => {
 				<Heading
 					text="Welcome to Vitaly Care"
 					subtext="All your healthcare needs in one place"
-					icon={DatabaseIcon}
+					icon={LayoutDashboard}
 					iconColor="text-blue-500"
 					bgColor="bg-blue-500/10"
 				/>
