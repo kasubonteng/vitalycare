@@ -1,23 +1,23 @@
 "use client";
 
-import { Booking, BookingSchema } from "@/lib/validators/bookingForm";
+import { cn } from "@/lib/utils";
+import { BookingSchema } from "@/lib/validators/bookingForm";
+import { useUser } from "@clerk/nextjs";
 import { zodResolver } from "@hookform/resolvers/zod";
+import axios from "axios";
+import { format } from "date-fns";
+import { CalendarIcon, Loader2 } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { Form } from "./ui/form";
-import { Label } from "./ui/label";
-import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { Button } from "./ui/button";
-import { cn } from "@/lib/utils";
-import { CalendarIcon } from "lucide-react";
-import { format } from "date-fns";
 import { Calendar } from "./ui/calendar";
-import { useContext, useState } from "react";
-import TextareaAutosize from "react-textarea-autosize";
-import { useMutation } from "@tanstack/react-query";
-import { prisma } from "@/lib/prisma";
-import { currentUser, useUser } from "@clerk/nextjs";
-import { UserDataContext } from "@/context/userData";
+import { Form, FormControl, FormField, FormItem, FormLabel } from "./ui/form";
+import { Input } from "./ui/input";
+import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
+import { ToastAction } from "./ui/toast";
+import { toast } from "./ui/use-toast";
 
 interface AppointmentFormProps {
 	doctorId: string;
@@ -26,6 +26,8 @@ interface AppointmentFormProps {
 const AppointmentForm = ({ doctorId }: AppointmentFormProps) => {
 	const [input, setInput] = useState<string>("");
 	const [date, setDate] = useState<Date | undefined>(new Date());
+	const router = useRouter();
+	const { user } = useUser();
 
 	const form = useForm<z.infer<typeof BookingSchema>>({
 		resolver: zodResolver(BookingSchema),
@@ -35,31 +37,42 @@ const AppointmentForm = ({ doctorId }: AppointmentFormProps) => {
 		},
 	});
 
-	const { user: clerkUser } = useUser();
+	const {
+		errors,
+		isSubmitSuccessful: isSuccess,
+		isSubmitting: isLoading,
+	} = form.formState;
 
-	const { mutate: submitBooking, isLoading } = useMutation({
-		// mutationFn: async (data: Booking) => {
-		// 	const user = await prisma.user.findFirst({
-		// 		where: {
-		// 			lastName: clerkUser?.lastName as string | undefined,
-		// 		},
-		// 	});
-		// 	await prisma.booking.create({
-		// 		data: {
-		// 			date: data.date,
-		// 			reason: data.reason,
-		// 			doctorId: doctorId,
-		// 			patientId: user?.id as string,
-		// 		},
-		// 	});
-		// },
-	});
+	useEffect(() => {
+		if (isSuccess) {
+			toast({
+				title: "Appointment Made",
+				action: (
+					<ToastAction
+						altText="See Bookings"
+						onClick={() => router.push("/bookings")}
+					>
+						See Bookings
+					</ToastAction>
+				),
+			});
+		}
+	}, [router, isSuccess]);
 
-	const onSubmit = (values: z.infer<typeof BookingSchema>) => {
-		console.log(values);
+	const onSubmit = async (values: z.infer<typeof BookingSchema>) => {
+		console.log({ ...values, patientId: user?.id, doctorId });
 
-		// TODO: SUBMIT FORM
-		// submitBooking(values);
+		axios.post("/api/book-appointment", {
+			appointmentDetails: {
+				...values,
+				patientId: user?.id,
+				doctorId: doctorId,
+			},
+		});
+
+		if (isSuccess) {
+			form.reset();
+		}
 	};
 	return (
 		<Form {...form}>
@@ -67,51 +80,71 @@ const AppointmentForm = ({ doctorId }: AppointmentFormProps) => {
 				<div>
 					<div className="flex flex-col space-y-6 ">
 						<div className="flex flex-col gap-2 ">
-							<Label className="">Date of Appointment</Label>
-							<Popover>
-								<PopoverTrigger asChild>
-									<Button
-										className={cn(
-											"justify-start font-normal text-left  w-80",
-											!date && "text-muted-foreground"
-										)}
-										variant="outline"
-									>
-										<CalendarIcon className="w-4 h-4 mr-4 " />
-										{date ? format(date, "PPP") : <span>Pick a date</span>}
-									</Button>
-								</PopoverTrigger>
-								<PopoverContent>
-									<Calendar
-										mode="single"
-										selected={date}
-										onSelect={setDate}
-										initialFocus
-										disabled={(date) => date < new Date()}
-									/>
-								</PopoverContent>
-							</Popover>
+							<FormField
+								control={form.control}
+								name="date"
+								render={({ field }) => (
+									<FormItem className="flex flex-col ">
+										<FormLabel>Date of Appointment</FormLabel>
+										<FormControl>
+											<Popover>
+												<PopoverTrigger asChild>
+													<Button
+														className={cn(
+															"justify-start font-normal text-left  w-80",
+															!date && "text-muted-foreground"
+														)}
+														variant="outline"
+													>
+														{field.value ? (
+															format(field.value, "PPP")
+														) : (
+															<span>Pick a date</span>
+														)}
+														<CalendarIcon className="w-4 h-4 ml-auto " />
+													</Button>
+												</PopoverTrigger>
+												<PopoverContent>
+													<Calendar
+														mode="single"
+														selected={field.value}
+														onSelect={field.onChange}
+														initialFocus
+														disabled={(date) => date < new Date()}
+													/>
+												</PopoverContent>
+											</Popover>
+										</FormControl>
+									</FormItem>
+								)}
+							/>
 						</div>
 						<div className="flex flex-col gap-2">
-							<Label>Reason For Appointment</Label>
-							<TextareaAutosize
-								value={input}
-								rows={6}
-								className="rounded-lg resize-none border-muted-foreground focus:ring-black focus:outline-none"
-								onChange={(e) => setInput(e.target.value)}
-								onKeyDown={(e) => {
-									if (e.key === "Enter" && !e.shiftKey) {
-										e.preventDefault();
-
-										// TODO: SUBMIT FORM
-										// submitBooking({ date: date as Date, reason: input });
-									}
-								}}
+							<FormField
+								control={form.control}
+								name="reason"
+								render={({ field }) => (
+									<FormItem className="flex flex-col ">
+										<FormLabel>Reason For Appointment</FormLabel>
+										<FormControl>
+											<Input
+												{...field}
+												className="rounded-lg resize-none border-muted-foreground focus:ring-black focus:outline-none"
+											/>
+										</FormControl>
+									</FormItem>
+								)}
 							/>
 						</div>
 
-						<Button className="" variant="destructive">
-							Book Appointment
+						<Button
+							type="submit"
+							variant="destructive"
+							disabled={isLoading}
+							onClick={() => console.log(isSuccess)}
+						>
+							{isLoading ? "Booking" : "Book"} Appointment
+							{isLoading ? <Loader2 className="w-3 h-3 animate-spin" /> : ""}
 						</Button>
 					</div>
 				</div>
