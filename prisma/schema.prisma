@@ -8,8 +8,8 @@ datasource db {
 }
 
 model User {
-  id               String    @id @default(auto()) @map("_id") @db.ObjectId
-  userId           String    @unique
+  id               String  @id @default(auto()) @map("_id") @db.ObjectId
+  userId           String  @unique
   firstName        String
   lastName         String
   otherNames       String?
@@ -17,7 +17,7 @@ model User {
   weight           Int
   height           Int
   healthConditions String?
-  bookings         Booking[]
+  // bookings         Booking[]
 }
 
 // model Admin {
@@ -39,24 +39,24 @@ model Hospital {
 }
 
 model Doctor {
-  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
   name        String
   gender      Gender
   contact     String
   image       String
   specialty   String
   isFavourite Boolean
-  booking     Booking[]
+  // booking     Booking[]
 }
 
 model Booking {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  patientId String   @db.ObjectId
-  doctorId  String   @db.ObjectId
+  patientId String
+  doctorId  String
   date      DateTime
   reason    String
-  doctor    Doctor   @relation(fields: [doctorId], references: [id])
-  user      User     @relation(fields: [patientId], references: [id])
+  // doctor    Doctor   @relation(fields: [doctorId], references: [id])
+  // user      User     @relation(fields: [patientId], references: [id])
 }
 
 enum HospitalType {

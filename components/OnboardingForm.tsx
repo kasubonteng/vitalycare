@@ -95,13 +95,13 @@ const OnboardingForm = () => {
 	} = form.formState;
 
 	const onSubmit = async (values: z.infer<typeof OnboardingSchema>) => {
-		await axios.post("/api/onboarding", { userData: values });
-
-		if (isSuccess) {
-			form.reset();
-			router.push("/dashboard");
-		}
+		await axios.post("/api/user", { userData: values });
 	};
+
+	if (isSuccess) {
+		form.reset();
+		router.push("/dashboard");
+	}
 
 	return (
 		<Form {...form}>
@@ -129,7 +129,11 @@ const OnboardingForm = () => {
 					/>
 				))}
 				<div className="pt-6 ">
-					<Button type="submit" className=" bg-destructive">
+					<Button
+						type="submit"
+						className=" bg-destructive"
+						disabled={isLoading}
+					>
 						Register{" "}
 						{isLoading ? <Loader2 className="w-3 h-3 animate-spin" /> : ""}
 					</Button>
