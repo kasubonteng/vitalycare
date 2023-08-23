@@ -1,17 +1,15 @@
 "use client";
 
-import { useForm } from "react-hook-form";
-import { Form, FormControl, FormField, FormItem, FormLabel } from "./ui/form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Input } from "./ui/input";
-import { Button } from "./ui/button";
-import { Loader2 } from "lucide-react";
-import { toast, useToast } from "./ui/use-toast";
 import { OnboardingSchema } from "@/lib/validators/onboardingForm";
-import { useContext } from "react";
-import { UserDataContext } from "@/context/userData";
+import { zodResolver } from "@hookform/resolvers/zod";
+import axios from "axios";
+import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { Button } from "./ui/button";
+import { Form, FormControl, FormField, FormItem, FormLabel } from "./ui/form";
+import { Input } from "./ui/input";
 
 type formInputType = {
 	label: string;
@@ -76,7 +74,6 @@ const formInputs: formInputType = [
 
 const OnboardingForm = () => {
 	const router = useRouter();
-	const { createNewUser } = useContext(UserDataContext);
 
 	const form = useForm<z.infer<typeof OnboardingSchema>>({
 		resolver: zodResolver(OnboardingSchema),
@@ -96,12 +93,9 @@ const OnboardingForm = () => {
 		isSubmitting: isLoading,
 		isSubmitSuccessful: isSuccess,
 	} = form.formState;
-	// console.log(errors);
 
-	const onSubmit = (values: z.infer<typeof OnboardingSchema>) => {
-		createNewUser(values);
-		console.log(isLoading);
-		console.log(isSuccess);
+	const onSubmit = async (values: z.infer<typeof OnboardingSchema>) => {
+		await axios.post("/api/onboarding", { userData: values });
 
 		if (isSuccess) {
 			form.reset();
@@ -109,7 +103,6 @@ const OnboardingForm = () => {
 		}
 	};
 
-	const { toast } = useToast();
 	return (
 		<Form {...form}>
 			<form onSubmit={form.handleSubmit(onSubmit)}>
