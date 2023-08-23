@@ -2,6 +2,7 @@
 
 import { Heading } from "@/components/Heading";
 import { Card } from "@/components/ui/card";
+import { UserDataContext } from "@/context/userData";
 import { cn } from "@/lib/utils";
 import {
 	ArrowRight,
@@ -12,12 +13,13 @@ import {
 	Stethoscope,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useContext } from "react";
 
 const links = [
 	{
 		name: "Chat",
 		icon: MessageSquare,
-		href: "/chat",
+		href: "/chat/stream",
 		color: "text-green-500",
 		bgColor: "text-green-500/10",
 	},
@@ -39,11 +41,12 @@ const links = [
 
 const DashboardPage = () => {
 	const router = useRouter();
+	const { myUser } = useContext(UserDataContext);
 	return (
 		<div className="">
 			<div className="flex px-2 mb-8 md:px-16 lg:px-28">
 				<Heading
-					text="Welcome to Vitaly Care"
+					text={`${myUser.firstName}, Welcome to Vitaly Care`}
 					subtext="All your healthcare needs in one place"
 					icon={LayoutDashboard}
 					iconColor="text-blue-500"
