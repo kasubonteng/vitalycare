@@ -10,6 +10,7 @@ export default authMiddleware({
 		"/hospitals",
 		"/settings",
 		"/chat",
+		"/connect-metamask",
 	],
 });
 
