@@ -1,6 +1,13 @@
 "use client";
 
-import { ArrowRight, Church, MessageSquare, Stethoscope } from "lucide-react";
+import {
+	ArrowRight,
+	CalendarClock,
+	Church,
+	MessageSquare,
+	Settings,
+	Stethoscope,
+} from "lucide-react";
 import { Card } from "./ui/card";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
@@ -26,6 +33,20 @@ const links = [
 		href: "/doctors",
 		color: "text-gray-700",
 		bgColor: "text-gray-700/10",
+	},
+	{
+		name: "Bookings",
+		icon: CalendarClock,
+		href: "/bookings",
+		color: "text-teal-400",
+		bgColor: "text-teal-400/10",
+	},
+	{
+		name: "Settings",
+		icon: Settings,
+		href: "/settings",
+		// color: "text-teal-400",
+		// bgColor: "text-teal-400/10",
 	},
 ];
 
