@@ -24,3 +24,20 @@ export async function POST(req: Request) {
 		console.log("APPOINTMENT_ERROR", error);
 	}
 }
+
+export async function DELETE(req: Request) {
+	const body = await req.json();
+	const { data } = body;
+
+	try {
+		await prisma.booking.delete({
+			where: {
+				id: data,
+			},
+		});
+
+		return new NextResponse("Appointment Removed", { status: 200 });
+	} catch (error) {
+		console.log("DELETE_BOOKING", error);
+	}
+}
