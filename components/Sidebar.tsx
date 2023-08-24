@@ -1,14 +1,14 @@
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import Image from "next/image";
+import { cn } from "@/lib/utils";
 import {
+	CalendarClock,
 	Church,
 	LayoutDashboard,
 	MessageSquare,
 	Settings,
 	Stethoscope,
 } from "lucide-react";
-import { cn } from "@/lib/utils";
+import Image from "next/image";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const routes = [
@@ -21,7 +21,7 @@ const routes = [
 	{
 		name: "Chat",
 		icon: MessageSquare,
-		href: "/chat",
+		href: "/chat/stream",
 		color: "text-green-500",
 	},
 	{
@@ -37,6 +37,12 @@ const routes = [
 		color: "text-gray-700",
 	},
 	{
+		name: "Bookings",
+		icon: CalendarClock,
+		href: "/bookings",
+		color: "text-teal-400",
+	},
+	{
 		name: "Settings",
 		icon: Settings,
 		href: "/settings",
@@ -48,7 +54,7 @@ const Sidebar = () => {
 	return (
 		<div className="inset-y-0 z-[10000] flex flex-col h-full py-4 space-y-4 shadow-lg text-muted w-72 bg-destructive">
 			<div className="flex-1 px-3 py-2 ">
-				<Link href="/chat" className="flex items-center pl-3 mb-14">
+				<Link href="/chat" className="flex items-center pl-3 mb-14 ">
 					<div className="relative w-6 h-6 mr-2">
 						<Image src="/logo.png" alt="logo" fill />
 					</div>

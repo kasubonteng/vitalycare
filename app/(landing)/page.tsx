@@ -1,12 +1,11 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
-import { useAuth } from "@clerk/nextjs";
-import Link from "next/link";
-import { Noto_Sans } from "next/font/google";
-import TypewriterComponent from "typewriter-effect";
 import { LandingNavbar } from "@/components/LandingNavbar";
+import { Button } from "@/components/ui/button";
+import { useAuth } from "@clerk/nextjs";
+import { Noto_Sans } from "next/font/google";
+import Link from "next/link";
+import TypewriterComponent from "typewriter-effect";
 
 const noto_sans = Noto_Sans({
 	weight: "600",

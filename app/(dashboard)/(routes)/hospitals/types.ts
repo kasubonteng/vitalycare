@@ -11,6 +11,7 @@ interface Hospital {
 }
 
 interface Doctor {
+	id: string;
 	hospitalId?: string;
 	name: string;
 	gender: "Male" | "Female";

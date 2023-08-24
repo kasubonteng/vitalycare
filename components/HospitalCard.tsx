@@ -1,5 +1,15 @@
 "use client";
 
+import { cn } from "@/lib/utils";
+import {
+	Clock10,
+	Heart,
+	MapPin,
+	Maximize2,
+	Phone,
+	Timer,
+	Unlink2,
+} from "lucide-react";
 import Image from "next/image";
 import {
 	Card,
@@ -9,17 +19,6 @@ import {
 	CardTitle,
 } from "./ui/card";
 import {
-	ArrowRight,
-	Clock10,
-	Cross,
-	Heart,
-	MapPin,
-	Maximize2,
-	Phone,
-	Timer,
-	Unlink2,
-} from "lucide-react";
-import {
 	Dialog,
 	DialogContent,
 	DialogDescription,
@@ -27,8 +26,6 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "./ui/dialog";
-import { Separator } from "./ui/separator";
-import { cn } from "@/lib/utils";
 
 const HospitalCard = ({
 	name,
@@ -54,7 +51,7 @@ const HospitalCard = ({
 				</CardTitle>
 				<div className="flex flex-col space-y-5 ">
 					<div className="flex items-center justify-start space-x-4">
-						<MapPin />
+						<MapPin size={20} />
 						<CardDescription className="text-xs">{location}</CardDescription>
 					</div>
 					<div className="flex items-center justify-start space-x-4 ">
@@ -71,10 +68,13 @@ const HospitalCard = ({
 			</CardHeader>
 			<CardContent>
 				<Dialog>
-					<DialogTrigger className="text-sm transition hover:underline ">
+					<DialogTrigger className="text-sm transition hover:text-destructive group ">
 						<div className="flex items-center ">
 							More Info
-							<Maximize2 size={14} className="ml-1" />
+							<Maximize2
+								size={14}
+								className="ml-1 transition group-hover:scale-125"
+							/>
 						</div>
 					</DialogTrigger>
 					<DialogContent className="p-8">
