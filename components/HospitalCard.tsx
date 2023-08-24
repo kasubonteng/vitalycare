@@ -1,5 +1,15 @@
 "use client";
 
+import { cn } from "@/lib/utils";
+import {
+	Clock10,
+	Heart,
+	MapPin,
+	Maximize2,
+	Phone,
+	Timer,
+	Unlink2,
+} from "lucide-react";
 import Image from "next/image";
 import {
 	Card,
@@ -9,17 +19,6 @@ import {
 	CardTitle,
 } from "./ui/card";
 import {
-	ArrowRight,
-	Clock10,
-	Cross,
-	Heart,
-	MapPin,
-	Maximize2,
-	Phone,
-	Timer,
-	Unlink2,
-} from "lucide-react";
-import {
 	Dialog,
 	DialogContent,
 	DialogDescription,
@@ -27,8 +26,6 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "./ui/dialog";
-import { Separator } from "./ui/separator";
-import { cn } from "@/lib/utils";
 
 const HospitalCard = ({
 	name,

@@ -1,8 +1,5 @@
-import { Heading } from "@/components/Heading";
-import { Church } from "lucide-react";
 import HospitalCard from "@/components/HospitalCard";
 import { prisma } from "@/lib/prisma";
-import { Skeleton } from "@/components/ui/skeleton";
 
 const HospitalsPage = async () => {
 	const hospitals = await prisma.hospital.findMany();

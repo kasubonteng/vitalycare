@@ -1,5 +1,6 @@
 "use client";
 
+import { Gender } from "@prisma/client";
 import axios from "axios";
 import {
 	AlertDialog,
@@ -22,7 +23,6 @@ import {
 	TableHeader,
 	TableRow,
 } from "./ui/table";
-import { Gender } from "@prisma/client";
 
 interface BookingTableProps {
 	bookings: {

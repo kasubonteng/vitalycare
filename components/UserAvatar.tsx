@@ -1,7 +1,7 @@
 "use client";
 
-import { useUser } from "@clerk/nextjs";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { useUser } from "@clerk/nextjs";
 import { AvatarImage } from "@radix-ui/react-avatar";
 
 export const UserAvatar = () => {

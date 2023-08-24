@@ -1,5 +1,4 @@
 import { cn } from "@/lib/utils";
-import { useUser } from "@clerk/nextjs";
 import { LucideIcon } from "lucide-react";
 
 interface HeadingProps {

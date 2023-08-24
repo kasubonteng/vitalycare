@@ -1,7 +1,7 @@
 import DashboardCard from "@/components/DashboardCard";
 import { Heading } from "@/components/Heading";
 import { prisma } from "@/lib/prisma";
-import { auth, useUser } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs";
 import { LayoutDashboard } from "lucide-react";
 
 const DashboardPage = async () => {

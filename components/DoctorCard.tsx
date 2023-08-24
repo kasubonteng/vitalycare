@@ -3,10 +3,7 @@
 import { cn } from "@/lib/utils";
 import { Church, Heart, Phone, User2 } from "lucide-react";
 import Image from "next/image";
-import React, { Fragment, useState } from "react";
-import { useForm } from "react-hook-form";
 import AppointmentForm from "./AppointmentForm";
-import { Button } from "./ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import {
 	Dialog,

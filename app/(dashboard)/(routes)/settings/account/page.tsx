@@ -14,7 +14,7 @@ import { UserDataContext } from "@/context/userData";
 import { OnboardingSchema } from "@/lib/validators/onboardingForm";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2, User as UserIcon } from "lucide-react";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 

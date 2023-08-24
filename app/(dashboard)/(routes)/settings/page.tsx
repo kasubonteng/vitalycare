@@ -2,7 +2,7 @@
 
 import { Heading } from "@/components/Heading";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowRight, CogIcon, Lock, Settings, User } from "lucide-react";
+import { ArrowRight, Lock, Settings, User } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 const links = [

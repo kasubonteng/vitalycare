@@ -6,7 +6,7 @@ import { Message } from "@/lib/validators/message";
 import { useMutation } from "@tanstack/react-query";
 import { CornerDownLeft, Loader2 } from "lucide-react";
 import { nanoid } from "nanoid";
-import { FC, HTMLAttributes, useContext, useRef, useState } from "react";
+import { HTMLAttributes, useContext, useRef, useState } from "react";
 import TextareaAutosize from "react-textarea-autosize";
 
 interface ChatInputProps extends HTMLAttributes<HTMLDivElement> {}
