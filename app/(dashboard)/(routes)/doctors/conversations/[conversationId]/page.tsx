@@ -2,6 +2,7 @@ import { prisma } from "@/lib/prisma";
 import getConversationById from "./getConversationById";
 import getMessages from "./getMessages";
 import DoctorConversation from "@/components/DoctorConversation";
+import DoctorConversationForm from "@/components/DoctorConversationForm";
 
 interface ConversationPageInterface {
 	params: {
@@ -23,7 +24,9 @@ const ConversationPage = async ({ params }: ConversationPageInterface) => {
 	return (
 		<div className="h-full ">
 			<div className="flex flex-col h-full ">
-				<DoctorConversation />
+				Chat
+				<DoctorConversation initialMessages={messages} />
+				<DoctorConversationForm />
 			</div>
 		</div>
 	);
