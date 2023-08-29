@@ -10,11 +10,13 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@/components/ui/card";
+import { Loader2 } from "lucide-react";
 
 const ConnectMetamask = () => {
 	const [hasProvider, setHasProvider] = useState<boolean | null>(null);
 	const initialState = { accounts: [] };
 	const [wallet, setWallet] = useState(initialState);
+	const [isLoading, setIsLoading] = useState<boolean>(false);
 
 	useEffect(() => {
 		const getProvider = async () => {
@@ -34,7 +36,7 @@ const ConnectMetamask = () => {
 		let accounts = await window?.ethereum?.request({
 			method: "eth_requestAccounts",
 		});
-		updateWallet(accounts);
+		return updateWallet(accounts);
 	};
 
 	const sendEth = async () => {
@@ -53,6 +55,13 @@ const ConnectMetamask = () => {
 		});
 	};
 
+	const makePayment = async () => {
+		setIsLoading(true);
+		let result = await sendEth();
+		console.log(result);
+		setIsLoading(false);
+	};
+
 	return (
 		<div className="flex items-center justify-center h-full ">
 			<Card className="">
@@ -62,7 +71,12 @@ const ConnectMetamask = () => {
 				</CardHeader>
 				<CardContent>
 					{hasProvider && (
-						<Button variant="destructive" onClick={handleConnect}>
+						<Button
+							variant="destructive"
+							onClick={() => {
+								handleConnect();
+							}}
+						>
 							Connect MetaMask
 						</Button>
 					)}
@@ -73,14 +87,23 @@ const ConnectMetamask = () => {
 							<Button
 								variant="destructive"
 								onClick={() =>
-									sendEth().then(() => {
-										console.log("done");
-									})
+									makePayment()
+										.then(() => {
+											console.log("done");
+										})
+										.catch(() => {
+											console.log("PAYMENT ERROR");
+										})
 								}
 							>
 								Send money
 							</Button>
 						</>
+					)}
+					{isLoading && (
+						<div>
+							<Loader2 className=" animate-spin" />
+						</div>
 					)}
 				</CardContent>
 			</Card>

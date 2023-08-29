@@ -8,7 +8,7 @@ import axios from "axios";
 import { format } from "date-fns";
 import { CalendarIcon, Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "./ui/button";
@@ -18,6 +18,9 @@ import { Input } from "./ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { ToastAction } from "./ui/toast";
 import { toast } from "./ui/use-toast";
+import { prisma } from "@/lib/prisma";
+import getUsers from "@/app/(dashboard)/(routes)/doctors/getUser";
+import { User } from "@prisma/client";
 
 interface AppointmentFormProps {
 	doctorId: string;
@@ -78,6 +81,18 @@ const AppointmentForm = ({ doctorId }: AppointmentFormProps) => {
 	const onSubmit = () => {
 		router.push("/connect-metamask");
 	};
+
+	const handleChat = useCallback(() => {
+		axios
+			.post("/api/doctorconversations", {
+				userId: "64ed03df3a204974f33a225b",
+			})
+			.then((data) => {
+				console.log(data);
+				router.push(`/doctors/conversations/${data.data.id}`);
+			});
+	}, [router]);
+
 	return (
 		<Form {...form}>
 			<form onSubmit={form.handleSubmit(onSubmit)}>
@@ -149,6 +164,9 @@ const AppointmentForm = ({ doctorId }: AppointmentFormProps) => {
 						>
 							{isLoading ? "Booking" : "Book"} Appointment
 							{isLoading ? <Loader2 className="w-3 h-3 animate-spin" /> : ""}
+						</Button>
+						<Button type="button" onClick={() => handleChat()}>
+							Chat
 						</Button>
 					</div>
 				</div>

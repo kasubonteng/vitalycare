@@ -1,5 +1,6 @@
 import DoctorCard from "@/components/DoctorCard";
 import { prisma } from "@/lib/prisma";
+import { auth } from "@clerk/nextjs";
 
 const DoctorPage = async () => {
 	const doctors = await prisma.doctor.findMany();

@@ -1,0 +1,18 @@
+{
+	"_id": { "$oid": "64c6c2ca80c3747e21378c1a" },
+	"name": "Dr. Nana Yaa Mensah",
+	"gender": "Female",
+	"contact": "0240000000",
+	"image": "/doctor-img01.png",
+	"specialty": "biochemist",
+	"isFavourite": true
+}
+{"_id":{"$oid":"64c6c2cc80c3747e21378c1b"},"name":"Dr. Bright Okyere","gender":"Male","contact":"0240000000","image":"/doctor-img01.png","specialty":"pharmacist","isFavourite":false}
+
+{"_id":{"$oid":"64c6c24380c3747e21378c13"},"name":"Bomso Clinic","location":"Bomso","image":"/bomso-clinic.jpeg","type":"Private","avg_waiting_time":{"$numberLong":"1"},"working_hours":"24","contact":"0322496283","isFavourite":true,"services":"OPD"}
+
+{"_id":{"$oid":"64c6c24580c3747e21378c14"},"name":"Tech Hospital","location":"KNUST","image":"/tech-hospital.jpeg","type":"Public","avg_waiting_time":{"$numberLong":"4"},"working_hours":"24","contact":"0322060320","isFavourite":true,"services":"OPD"}
+
+{"_id":{"$oid":"64c6c24580c3747e21378c15"},"name":"KNUST Student Clinic","location":"KNUST","image":"/student-clinic.jpeg","type":"Public","avg_waiting_time":{"$numberLong":"1"},"working_hours":"8 - 5","contact":"--","isFavourite":false,"services":""}
+
+{"_id":{"$oid":"64c6c58180c3747e21378c23"},"name":"Victory Maternity Clinic","location":"Kumasi","image":"/victory-maternal.jpeg","type":"Public","avg_waiting_time":{"$numberLong":"1"},"working_hours":"8 - 5","contact":"--","isFavourite":false,"services":"Maternity Ward"}
