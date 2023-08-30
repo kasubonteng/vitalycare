@@ -62,21 +62,6 @@ const AppointmentForm = ({ doctorId }: AppointmentFormProps) => {
 		}
 	}, [router, isSuccess]);
 
-	// const onSubmit = async (values: z.infer<typeof BookingSchema>) => {
-	// 	console.log({ ...values, patientId: user?.id, doctorId });
-
-	// 	axios.post("/api/book-appointment", {
-	// 		appointmentDetails: {
-	// 			...values,
-	// 			patientId: user?.id,
-	// 			doctorId: doctorId,
-	// 		},
-	// 	});
-
-	// 	if (isSuccess) {
-	// 		form.reset();
-	// 	}
-	// };
 
 	const onSubmit = () => {
 		router.push("/connect-metamask");
